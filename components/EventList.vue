@@ -2,13 +2,12 @@
 import { Unsubscribe } from "firebase/firestore";
 
 const eventList = useEvents();
-const eventArray = getOrderedEventNames(eventList.value);
 
 const filters = useFilters();
 const isLoading = ref(true);
 const firestoreStopStream = ref<Unsubscribe>(() => {});
 
-if (typeof window !== "undefined") {
+watchEffect(() => {
   firestoreStopStream.value();
 
   firestoreStopStream.value = onEventListUpdate(
@@ -23,17 +22,23 @@ if (typeof window !== "undefined") {
       }
     }
   );
-}
+});
 </script>
 
 <template>
   <div id="event-list">
-    <div v-if="eventArray.length == 0" class="text-center w-100 mt-3">
+    <div
+      v-if="Object.keys(eventList).length == 0"
+      class="text-center w-100 mt-3"
+    >
       <p v-if="isLoading">Content is loading...</p>
       <p v-else>Currently no events ongoing</p>
     </div>
     <div v-else>
-      <template v-for="eventName in eventArray" :key="eventName">
+      <template
+        v-for="eventName in getOrderedEventNames(eventList)"
+        :key="eventName"
+      >
         <EventItem
           v-if="filters.length == 0 || filterContains(eventName, filters)"
           :eventName="eventName"

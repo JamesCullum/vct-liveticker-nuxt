@@ -1,1 +1,3 @@
-importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js');
+importScripts(
+  "https://onesignal-proxy.jamescullum.workers.dev/sdks/OneSignalSDK.js"
+);

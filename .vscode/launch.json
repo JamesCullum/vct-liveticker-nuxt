@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "type": "node-terminal",
+      "name": "Skript ausführen: dev",
+      "request": "launch",
+      "command": "pnpm run dev",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

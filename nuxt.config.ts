@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: "https://cdn.onesignal.com/sdks/OneSignalSDK.js",
+          src: "https://onesignal-proxy.jamescullum.workers.dev/sdks/OneSignalSDK.js",
           defer: true,
         },
       ],
