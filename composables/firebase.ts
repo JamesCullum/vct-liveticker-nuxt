@@ -16,12 +16,14 @@ export const firebase_app =
 
 // Can only run in browser
 export function getFireStore(): Firestore {
-  const appCheck = initializeAppCheck(firebase_app, {
-    provider: new ReCaptchaV3Provider(
-      "6LeIsXYeAAAAAObgcWGuMGqLdNvp86fVIrlhcg1x"
-    ),
-    isTokenAutoRefreshEnabled: true,
-  });
+  if (typeof window !== "undefined") {
+    const appCheck = initializeAppCheck(firebase_app, {
+      provider: new ReCaptchaV3Provider(
+        "6LeIsXYeAAAAAObgcWGuMGqLdNvp86fVIrlhcg1x"
+      ),
+      isTokenAutoRefreshEnabled: true,
+    });
+  }
 
   return getFirestore(firebase_app);
 }
