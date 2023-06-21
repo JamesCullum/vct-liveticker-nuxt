@@ -2,14 +2,20 @@
 import { Unsubscribe } from "firebase/firestore";
 
 const eventList = useEvents();
-const orderedEvents = computed(() => {
-  return getOrderedEventNames(eventList.value);
-});
 
 const filters = useFilters();
 const isLoading = ref(true);
 const firestoreStopStream = ref<Unsubscribe>(() => {});
 
+const { data: serverEvents } = await useFetch("/api/events");
+console.log("data", serverEvents);
+eventList.value = serverEvents.value;
+isLoading.value = false;
+
+const orderedEvents = computed(() => {
+  return getOrderedEventNames(eventList.value);
+});
+/*
 onMounted(() => {
   firestoreStopStream.value();
 
@@ -26,6 +32,7 @@ onMounted(() => {
     }
   );
 });
+*/
 </script>
 
 <template>
