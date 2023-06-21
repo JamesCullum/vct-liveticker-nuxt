@@ -1,7 +1,10 @@
 <script setup lang="ts">
 const selectedFilters = useFilters();
-const savedFilters = getLocalStorage("filters", []);
-selectedFilters.value = savedFilters;
+
+onMounted(() => {
+  const savedFilters = getLocalStorage("filters", []);
+  selectedFilters.value = savedFilters;
+});
 
 function onFilterClick(index: number) {
   const label = getFilterLabel(index);

@@ -6,9 +6,11 @@ const props = defineProps<{
   eventName: string;
 }>();
 
-const matchList = getOrderedMatchItems(
-  eventList.value[props.eventName] as eventItemInterface
-);
+const matchList = computed(() => {
+  return getOrderedMatchItems(
+    eventList.value[props.eventName] as EventItemInterface
+  );
+});
 </script>
 
 <template>

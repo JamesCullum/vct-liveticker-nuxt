@@ -2,16 +2,19 @@
 import { Unsubscribe } from "firebase/firestore";
 
 const eventList = useEvents();
+const orderedEvents = computed(() => {
+  return getOrderedEventNames(eventList.value);
+});
 
 const filters = useFilters();
 const isLoading = ref(true);
 const firestoreStopStream = ref<Unsubscribe>(() => {});
 
-watchEffect(() => {
+onMounted(() => {
   firestoreStopStream.value();
 
   firestoreStopStream.value = onEventListUpdate(
-    (data: eventListInterface | boolean) => {
+    (data: EventListInterface | boolean) => {
       isLoading.value = false;
       console.log("eventListUpdate", data);
 
@@ -27,18 +30,12 @@ watchEffect(() => {
 
 <template>
   <div id="event-list">
-    <div
-      v-if="Object.keys(eventList).length == 0"
-      class="text-center w-100 mt-3"
-    >
+    <div v-if="orderedEvents.length == 0" class="text-center w-100 mt-3">
       <p v-if="isLoading">Content is loading...</p>
       <p v-else>Currently no events ongoing</p>
     </div>
     <div v-else>
-      <template
-        v-for="eventName in getOrderedEventNames(eventList)"
-        :key="eventName"
-      >
+      <template v-for="eventName in orderedEvents" :key="eventName">
         <EventItem
           v-if="filters.length == 0 || filterContains(eventName, filters)"
           :eventName="eventName"

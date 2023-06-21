@@ -20,4 +20,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [],
   css: ["@/assets/css/bootstrap.min.css"],
+  nitro: {
+    preset: "cloudflare",
+  },
 });

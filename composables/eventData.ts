@@ -3,15 +3,15 @@ import { Unsubscribe, doc, onSnapshot, getDoc } from "firebase/firestore";
 export const statusLookup = ["Upcoming", "Live", "Finished"];
 export const statusCardClassLookup = ["secondary", "danger", "success"];
 
-export interface eventListInterface {
-  [key: string]: eventItemInterface | DateInterface;
+export interface EventListInterface {
+  [key: string]: EventItemInterface | DateInterface;
 }
 
-export interface eventItemInterface {
-  [status: number]: matchItemInterface[];
+export interface EventItemInterface {
+  [status: number]: MatchItemInterface[];
 }
 
-export interface matchItemInterface {
+export interface MatchItemInterface {
   team1: string;
   team2: string;
   date: DateInterface;
@@ -31,12 +31,12 @@ export interface DateInterface {
   nanoseconds: number;
 }
 
-export const useEvents = () => useState("events", () => <eventListInterface>{});
+export const useEvents = () => useState("events", () => <EventListInterface>{});
 
 export const getEventDocRef = () => doc(getFireStore(), "events", "current");
 
 export function dateFormat(dateTime: DateInterface): string {
-  return new Date(dateTime.seconds * 1000).toLocaleString(navigator.language, {
+  return new Date(dateTime.seconds * 1000).toLocaleString(navigator?.language, {
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     year: "numeric",
     month: "numeric",
@@ -72,7 +72,7 @@ export function getTimeDiff(dateTime: DateInterface): string {
 export function onEventListUpdate(callback: Function): Unsubscribe {
   return onSnapshot(getEventDocRef(), (doc) => {
     try {
-      const result = doc.data() as eventListInterface;
+      const result = doc.data() as EventListInterface;
       callback(processEventList(result));
     } catch {
       callback(false);
@@ -80,20 +80,20 @@ export function onEventListUpdate(callback: Function): Unsubscribe {
   });
 }
 
-export async function getEvents(): Promise<eventListInterface> {
+export async function getEvents(): Promise<EventListInterface> {
   const docRef = getEventDocRef();
   const data = await getDoc(docRef);
-  return processEventList(data.data() as eventListInterface);
+  return processEventList(data.data() as EventListInterface);
 }
 
-function processEventList(events: eventListInterface): eventListInterface {
+function processEventList(events: EventListInterface): EventListInterface {
   delete events["_updated"];
 
   return events;
 }
 
 export function getOrderedEventNames(
-  events: eventListInterface
+  events: EventListInterface
 ): Array<string> {
   return Object.keys(events).sort((a, b) => {
     const aCount = Object.values(events[a]).flat(1).length;
@@ -105,11 +105,11 @@ export function getOrderedEventNames(
 }
 
 export function getOrderedMatchItems(
-  eventItem: eventItemInterface
-): Array<matchItemInterface> {
+  eventItem: EventItemInterface
+): Array<MatchItemInterface> {
   return Object.values(eventItem)
     .flat(1)
-    .sort((a: matchItemInterface, b: matchItemInterface) => {
+    .sort((a: MatchItemInterface, b: MatchItemInterface) => {
       const aDiff = getTimeDiffSeconds(a.date);
       const bDiff = getTimeDiffSeconds(b.date);
       if (aDiff > bDiff) return 1;

@@ -1,0 +1,12 @@
+name = "playground"
+main = "./.output/server/index.mjs"
+workers_dev = true
+compatibility_date = "2023-06-10"
+account_id = "f0b8ce8d160b8340650074b4e7fca6f3"
+
+kv_namespaces = [
+  { binding = "KVTICKERDATA", id = "04dc4623deb5485a8a133da5a6853ac8", preview_id = "747236fa93ad4be68889aac36962e204" }
+]
+
+[site]
+bucket = ".output/public"

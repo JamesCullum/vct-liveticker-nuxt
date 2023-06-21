@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 const selectedTheme = useTheme();
-const savedTheme = getLocalStorage("theme", 0);
 
-if (selectedTheme.value != savedTheme) {
-  selectedTheme.value = savedTheme;
-}
+onMounted(() => {
+  const savedTheme = getLocalStorage("theme", 0);
+
+  if (selectedTheme.value != savedTheme) {
+    selectedTheme.value = savedTheme;
+  }
+});
 
 function nextTheme() {
   selectedTheme.value =
