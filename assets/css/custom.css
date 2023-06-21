@@ -1,0 +1,125 @@
+:root {
+  --bs-primary-rgb: 71, 179, 255;
+  --bs-body-bg: #dadadc;
+  --bs-secondary: #00477a;
+}
+
+.bg-primary .navbar-nav .nav-link.active,
+.bg-primary .navbar-nav .nav-link:focus,
+.bg-primary .navbar-nav .nav-link:hover,
+.bg-primary .navbar-nav .show > .nav-link {
+  color: var(--bs-secondary) !important;
+}
+
+.btn-primary {
+  background-color: rgb(var(--bs-primary-rgb));
+  border-color: rgb(var(--bs-primary-rgb));
+}
+
+.btn-primary:hover {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: var(--bs-secondary);
+}
+
+body {
+  padding-top: 100px;
+}
+
+.event-filter-list .btn {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.mr-2 {
+  margin-right: 20px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.match-item .card-body {
+  padding-bottom: 20px;
+}
+
+.team-side[data-team="1"] {
+  text-align: right;
+}
+
+.match-status-0 .right-info {
+  color: #888;
+}
+
+.match-status-1 .right-info,
+.match-status-1 .right-info a {
+  color: #ce3b54;
+  text-decoration: none;
+}
+
+.match-status-2 .right-info {
+  color: var(--bs-secondary);
+}
+
+.left-info p,
+.right-info p {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  margin-top: -0.25em; /* fix positioning */
+}
+
+a.detail-link {
+  color: var(--bs-secondary);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+/* If push is not supported */
+body:not(.no-push) .push-disabled {
+  display: none !important;
+}
+body.no-push .push-enabled {
+  display: none !important;
+}
+
+/* Dark mode */
+body.dark {
+  --bs-primary-rgb: 18, 18, 18;
+  --bs-body-bg: #303030;
+  --bs-secondary: #47b3ff;
+  color: white;
+}
+
+body.dark .card,
+body.dark select,
+body.dark input,
+body.dark .dropdown-menu {
+  background-color: #424242 !important;
+  color: white;
+}
+
+body.dark .btn,
+body.dark form,
+body.dark .dropdown-item {
+  color: white;
+}
