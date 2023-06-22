@@ -5,17 +5,25 @@ const eventList = useEvents();
 
 const filters = useFilters();
 const isLoading = ref(true);
-const firestoreStopStream = ref<Unsubscribe>(() => {});
+const firestoreStopStream = ref<Unsubscribe>(() => { });
 
-const { data: serverEvents } = await useFetch("/api/events");
-console.log("data", serverEvents);
-eventList.value = serverEvents.value;
-isLoading.value = false;
+
+const { data: serverEvents, error } = await useAsyncData(
+  'initEventList',
+  () => $fetch("/api/events")
+)
+
+if (error.value) {
+  console.error(error.value)
+} else {
+  eventList.value = serverEvents.value;
+  isLoading.value = false;
+}
 
 const orderedEvents = computed(() => {
   return getOrderedEventNames(eventList.value);
 });
-/*
+
 onMounted(() => {
   firestoreStopStream.value();
 
@@ -32,7 +40,6 @@ onMounted(() => {
     }
   );
 });
-*/
 </script>
 
 <template>
@@ -43,10 +50,7 @@ onMounted(() => {
     </div>
     <div v-else>
       <template v-for="eventName in orderedEvents" :key="eventName">
-        <EventItem
-          v-if="filters.length == 0 || filterContains(eventName, filters)"
-          :eventName="eventName"
-        />
+        <EventItem v-if="filters.length == 0 || filterContains(eventName, filters)" :eventName="eventName" />
       </template>
     </div>
   </div>

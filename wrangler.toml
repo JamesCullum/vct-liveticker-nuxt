@@ -1,6 +1,4 @@
 name = "playground"
-main = "./.output/server/index.mjs"
-workers_dev = true
 compatibility_date = "2022-09-10"
 account_id = "f0b8ce8d160b8340650074b4e7fca6f3"
 
@@ -9,4 +7,5 @@ kv_namespaces = [
 ]
 
 [site]
-bucket = ".output/public"
+bucket = "./dist"
+
