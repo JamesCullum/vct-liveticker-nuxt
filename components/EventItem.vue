@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-const eventList = useEvents();
-const showItemLimit = ref(6);
+  const eventList = useEvents();
+  const showItemLimit = ref(6);
 
-const props = defineProps<{
-  eventName: string;
-}>();
+  const props = defineProps<{
+    eventName: string;
+  }>();
 
-const matchList = computed(() => {
-  return getOrderedMatchItems(
-    eventList.value[props.eventName] as EventItemInterface
-  );
-});
+  const matchList = computed(() => {
+    return getOrderedMatchItems(
+      eventList.value[props.eventName] as EventItemInterface
+    );
+  });
 </script>
 
 <template>

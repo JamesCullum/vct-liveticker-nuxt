@@ -1,23 +1,23 @@
 <script setup lang="ts">
-const selectedFilters = useFilters();
+  const selectedFilters = useFilters();
 
-onMounted(() => {
-  const savedFilters = getLocalStorage("filters", []);
-  selectedFilters.value = savedFilters;
-});
+  onMounted(() => {
+    const savedFilters = getLocalStorage("filters", []);
+    selectedFilters.value = savedFilters;
+  });
 
-function onFilterClick(index: number) {
-  const label = getFilterLabel(index);
-  const newValue = isLabelFiltered(index)
-    ? selectedFilters.value.filter((item: string) => item != label)
-    : selectedFilters.value.concat(label);
-  setLocalStorage("filters", newValue);
-  selectedFilters.value = newValue;
-}
+  function onFilterClick(index: number) {
+    const label = getFilterLabel(index);
+    const newValue = isLabelFiltered(index)
+      ? selectedFilters.value.filter((item: string) => item != label)
+      : selectedFilters.value.concat(label);
+    setLocalStorage("filters", newValue);
+    selectedFilters.value = newValue;
+  }
 
-function isLabelFiltered(index: number): boolean {
-  return selectedFilters.value.includes(getFilterLabel(index));
-}
+  function isLabelFiltered(index: number): boolean {
+    return selectedFilters.value.includes(getFilterLabel(index));
+  }
 </script>
 
 <template>

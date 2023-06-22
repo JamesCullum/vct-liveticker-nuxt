@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  status: Number;
-  dateTime: DateInterface;
-  stream?: String;
-}>();
+  const props = defineProps<{
+    status: Number;
+    dateTime: DateInterface;
+    stream?: String;
+  }>();
 
-const hasStream = "stream" in props && typeof props.stream !== "undefined";
-const timeDiff = getTimeDiff(props.dateTime);
+  const hasStream = "stream" in props && typeof props.stream !== "undefined";
+  const timeDiff = getTimeDiff(props.dateTime);
 </script>
 
 <template>

@@ -18,7 +18,7 @@
   }
 </script>
 <template>
-  <form class="bg-white p-5">
+  <form class="bg-light p-5">
     <fieldset>
       <h4>Manage Subscriptions</h4>
       <div class="form-group mt-3">

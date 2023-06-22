@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  match: MatchItemInterface;
-}>();
+  const props = defineProps<{
+    match: MatchItemInterface;
+  }>();
 </script>
 
 <template>

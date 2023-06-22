@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const dropdownOpened = ref(false);
+  const dropdownOpened = ref(false);
 
-const props = defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-});
+  const props = defineProps({
+    label: {
+      type: String,
+      required: true,
+    },
+  });
 </script>
 
 <template>
