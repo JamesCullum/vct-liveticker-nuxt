@@ -7,12 +7,7 @@ const filters = useFilters();
 const isLoading = ref(true);
 const firestoreStopStream = ref<Unsubscribe>(() => { });
 
-
-const { data: serverEvents, error } = await useAsyncData(
-  'initEventList',
-  () => $fetch("/api/events")
-)
-
+const { data: serverEvents, error } = await useFetch("/api/events")
 if (error.value) {
   console.error(error.value)
 } else {

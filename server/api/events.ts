@@ -3,6 +3,7 @@ export default defineEventHandler(async ({ context }) => {
   if (!("KVTICKERDATA" in context.cloudflare.env))
     throw createError("No CF binding");
 
-  const KVTICKERDATA = context.cloudflare.env.KVTICKERDATA;
-  return await KVTICKERDATA.get("current-events");
+  const data = await context.cloudflare.env.KVTICKERDATA.get("current-events");
+
+  return data ?? {};
 });
