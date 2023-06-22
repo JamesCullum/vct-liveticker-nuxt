@@ -1,40 +1,34 @@
 <script lang="ts" setup>
-import { Unsubscribe } from "firebase/firestore";
+  import { Unsubscribe } from "firebase/firestore";
 
-const eventList = useEvents();
+  const eventList = useEvents();
 
-const filters = useFilters();
-const isLoading = ref(true);
-const firestoreStopStream = ref<Unsubscribe>(() => { });
+  const filters = useFilters();
+  const isLoading = useState("isEventListLoading", () => true);
+  const firestoreStopStream = ref<Unsubscribe>(() => {});
 
-const { data: serverEvents, error } = await useFetch("/api/events")
-if (error.value) {
-  console.error(error.value)
-} else {
-  eventList.value = serverEvents.value;
-  isLoading.value = false;
-}
+  const orderedEvents = computed(() => {
+    return getOrderedEventNames(eventList.value);
+  });
 
-const orderedEvents = computed(() => {
-  return getOrderedEventNames(eventList.value);
-});
+  onMounted(() => {
+    if (isLoading.value) {
+      firestoreStopStream.value();
 
-onMounted(() => {
-  firestoreStopStream.value();
+      firestoreStopStream.value = onEventListUpdate(
+        (data: EventListInterface | boolean) => {
+          isLoading.value = false;
+          console.log("eventListUpdate", data);
 
-  firestoreStopStream.value = onEventListUpdate(
-    (data: EventListInterface | boolean) => {
-      isLoading.value = false;
-      console.log("eventListUpdate", data);
-
-      if (typeof data == "boolean") {
-        // TODO
-      } else {
-        eventList.value = data;
-      }
+          if (typeof data == "boolean") {
+            // TODO
+          } else {
+            eventList.value = data;
+          }
+        }
+      );
     }
-  );
-});
+  });
 </script>
 
 <template>
@@ -45,7 +39,10 @@ onMounted(() => {
     </div>
     <div v-else>
       <template v-for="eventName in orderedEvents" :key="eventName">
-        <EventItem v-if="filters.length == 0 || filterContains(eventName, filters)" :eventName="eventName" />
+        <EventItem
+          v-if="filters.length == 0 || filterContains(eventName, filters)"
+          :eventName="eventName"
+        />
       </template>
     </div>
   </div>

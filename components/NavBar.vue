@@ -1,15 +1,15 @@
 <script setup>
-const selectedTheme = useTheme();
+  const selectedTheme = useTheme();
 
-useHead({
-  bodyAttrs: {
-    class: computed(() => {
-      if (getThemeName(selectedTheme) == "dark") return "dark";
+  useHead({
+    bodyAttrs: {
+      class: computed(() => {
+        if (getThemeName(selectedTheme) == "dark") return "dark";
 
-      return "";
-    }),
-  },
-});
+        return "";
+      }),
+    },
+  });
 </script>
 
 <template>
@@ -48,11 +48,8 @@ useHead({
           </Dropdown>
         </ul>
         <ul class="navbar-nav ms-md-auto">
-          <li class="nav-item push-enabled" id="menu-profile">
-            <a href="#" class="nav-link sign-in">
-              <Icon name="user" />
-              Sign In
-            </a>
+          <li class="nav-item" id="menu-profile">
+            <NavBarNotification />
           </li>
           <li class="nav-item" id="menu-lightswitch">
             <ThemeSwitcher />
@@ -64,7 +61,7 @@ useHead({
 </template>
 
 <style>
-body {
-  padding-top: 100px;
-}
+  body {
+    padding-top: 100px;
+  }
 </style>

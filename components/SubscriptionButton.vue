@@ -1,16 +1,37 @@
 <script lang="ts" setup>
-const props = defineProps({
-  type: {
-    type: String,
-    required: true,
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-});
+  import {
+    useNotificationTags,
+    addNotificationTag,
+    removeNotificationTag,
+  } from "@/composables/notifications";
 
-const isSubscribed = ref(false);
+  const props = defineProps({
+    type: {
+      type: String,
+      required: true,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+  });
+
+  const notificationTags = useNotificationTags();
+  const isSubscribed = computed(
+    () =>
+      notificationTags !== null && getThisTagName() in notificationTags.value
+  );
+
+  function getThisTagName() {
+    return props.type + "-" + props.label;
+  }
+
+  function clickSubscribe() {
+    const label = getThisTagName();
+    isSubscribed.value
+      ? removeNotificationTag(label)
+      : addNotificationTag(label);
+  }
 </script>
 
 <template>
@@ -18,7 +39,7 @@ const isSubscribed = ref(false);
     type="button"
     class="btn"
     :class="isSubscribed ? 'btn-secondary' : 'btn-primary'"
-    @click="isSubscribed = !isSubscribed"
+    @click="clickSubscribe"
   >
     <Icon :name="isSubscribed ? 'bell-slash' : 'bell'" />
     <span v-if="isSubscribed"> Unsubscribe from {{ props.type }} updates </span>
