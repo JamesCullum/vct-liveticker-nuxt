@@ -6,6 +6,8 @@
       useOneSignal().push(() => {
         initNotifications();
         isLoading.value = false;
+
+        showNotificationHint();
       });
     }
   });

@@ -1,18 +1,21 @@
-<template>
-  <Icomoon :iconSet="iconSet" v-bind="$props" />
-</template>
-
-<script>
+<script setup>
   import { Icomoon } from "vue-icomoon";
   import iconSet from "@/assets/Icon.json";
 
-  export default {
-    name: "Icon",
-    components: { Icomoon },
-    setup() {
-      return {
-        iconSet,
-      };
+  const props = defineProps({
+    name: {
+      type: String,
+      required: true,
     },
-  };
+    size: {
+      type: Number | String,
+      required: false,
+    },
+  });
+
+  if (!("size" in props)) props.size = "16px";
 </script>
+
+<template>
+  <Icomoon :iconSet="iconSet" v-bind="props" />
+</template>

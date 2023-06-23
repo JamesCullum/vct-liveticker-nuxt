@@ -29,20 +29,21 @@ export function hideError(errorId: string) {
 }
 
 export function showNotificationHint() {
-  if (/iPad|iPhone/.test(navigator.userAgent) || true) {
+  if (
+    /iPad|iPhone/.test(navigator?.userAgent) ||
+    window?.location?.hash == "#ios-hint"
+  ) {
     Promise.all([
       renderIconString("ios_share"),
       renderIconString("plus-square"),
     ]).then((iconData: Array<string>) => {
       displayError({
         message:
-          `Add <b>Ticker for VCT</b> to your homescreen to enable push notifications for events and matches. 
-  Tap <b>Share ` +
+          "Add <b>Ticker for VCT</b> to your homescreen to enable push notifications for events and matches. Tap <b>Share " +
           iconData[0] +
-          `</b> and then 
-  <b>Add to Home Screen ` +
+          "</b> and then <b>Add to Home Screen " +
           iconData[1] +
-          `</b> to enable.`,
+          "</b> to enable.",
         severity: "info",
         id: "notification-hint",
       });
