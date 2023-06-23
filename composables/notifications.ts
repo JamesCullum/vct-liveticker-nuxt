@@ -1,13 +1,13 @@
-export interface OneSignalTags {
+export type OneSignalTags = {
   [key: string]: string;
-}
+};
 
-export interface GroupedOneSignalTags {
+export type GroupedOneSignalTags = {
   events: Array<string>;
   matches: Array<string>;
-}
+};
 
-export interface OneSignalSDK {
+export type OneSignalSDK = {
   init: (opts: Object) => void;
   on: (eventName: string, callback: Function) => void;
   push: Function;
@@ -17,7 +17,7 @@ export interface OneSignalSDK {
   sendTag: (key: string, value: string) => Promise<OneSignalTags>;
   deleteTag: (key: string) => void;
   deleteTags: (keyList: Array<string>, callback: Function) => Promise<boolean>;
-}
+};
 
 declare global {
   interface Window {
@@ -61,7 +61,8 @@ export function initNotifications() {
   });
 
   useOneSignal().on("subscriptionChange", async (isSubscribed: boolean) => {
-    console.log("The user's subscription state is now:", isSubscribed);
+    if (isSubscribed) hideError("notification-hint");
+
     useNotifications().value = isSubscribed
       ? await getNotificationUserId()
       : null;
@@ -74,6 +75,8 @@ export function initNotifications() {
       getNotificationTags().then((tags) => {
         useNotificationTags().value = tags;
       });
+    } else {
+      showNotificationHint();
     }
   });
 }
@@ -135,7 +138,7 @@ export function enableNotifications() {
 
 export function unsubscribeAllMatches() {
   const keyList = getGroupedNotificationTags.value.matches.map(
-    (el) => "match-" + el
+    (el: string) => "match-" + el
   );
   return removeNotificationTags(keyList);
 }

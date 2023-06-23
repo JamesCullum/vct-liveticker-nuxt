@@ -1,11 +1,4 @@
 <script lang="ts" setup>
-  import {
-    useOneSignal,
-    initNotifications,
-    isNotificationUser,
-    enableNotifications,
-  } from "@/composables/notifications";
-
   const isLoading = useState("isNotificationLoading", () => true);
 
   onMounted(() => {

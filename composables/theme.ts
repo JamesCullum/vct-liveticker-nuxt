@@ -1,5 +1,5 @@
 export const THEMES = Object.freeze({ AUTO: 0, DARK: 1, LIGHT: 2 });
-export const themeIcons = ["brightness-contrast", "moon-o", "sun"];
+export const themeIcons = ["brightness-contrast", "moon-o", "brightness_low"];
 export const themeLabels = ["Auto", "Dark", "Light"];
 
 export const useTheme = () =>

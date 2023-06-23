@@ -3,15 +3,15 @@ import { Unsubscribe, doc, onSnapshot, getDoc } from "firebase/firestore";
 export const statusLookup = ["Upcoming", "Live", "Finished"];
 export const statusCardClassLookup = ["secondary", "danger", "success"];
 
-export interface EventListInterface {
+export type EventListInterface = {
   [key: string]: EventItemInterface | DateInterface;
-}
+};
 
-export interface EventItemInterface {
+export type EventItemInterface = {
   [status: number]: MatchItemInterface[];
-}
+};
 
-export interface MatchItemInterface {
+export type MatchItemInterface = {
   team1: string;
   team2: string;
   date: DateInterface;
@@ -24,12 +24,12 @@ export interface MatchItemInterface {
   map2?: number;
   round1?: number;
   round2?: number;
-}
+};
 
-export interface DateInterface {
+export type DateInterface = {
   seconds: number;
   nanoseconds: number;
-}
+};
 
 export const useEvents = () => useState("events", () => <EventListInterface>{});
 
