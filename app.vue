@@ -12,4 +12,11 @@
   body {
     padding-top: 100px;
   }
+
+  svg {
+    margin-top: -3px;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+  }
 </style>

@@ -64,10 +64,3 @@
     </span>
   </button>
 </template>
-
-<style scoped>
-  svg {
-    margin-top: -3px;
-    margin-right: 5px;
-  }
-</style>
