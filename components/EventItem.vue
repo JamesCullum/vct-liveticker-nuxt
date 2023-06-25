@@ -51,6 +51,13 @@
             </button>
           </div>
         </div>
+        <div class="mt-2 d-lg-none">
+          <SubscriptionButton
+            class="btn-lg w-100"
+            type="event"
+            :label="props.eventName"
+          />
+        </div>
       </div>
     </div>
   </div>

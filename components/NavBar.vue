@@ -1,15 +1,5 @@
-<script setup>
-  const selectedTheme = useTheme();
-
-  useHead({
-    bodyAttrs: {
-      class: computed(() => {
-        if (getThemeName(selectedTheme) == "dark") return "dark";
-
-        return "";
-      }),
-    },
-  });
+<script lang="ts" setup>
+  const extendedMobileMenu = ref(false);
 </script>
 
 <template>
@@ -18,10 +8,18 @@
       <NuxtLink class="navbar-brand" to="/">
         <img src="/img/logo-white_30.png" width="30" height="30" alt="Logo" />
       </NuxtLink>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        @click="extendedMobileMenu = !extendedMobileMenu"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse">
+      <div
+        class="collapse navbar-collapse"
+        :class="extendedMobileMenu ? 'show' : ''"
+      >
         <ul class="navbar-nav">
           <li class="nav-item">
             <NuxtLink class="nav-link" to="/">Events</NuxtLink>
@@ -59,9 +57,3 @@
     </div>
   </div>
 </template>
-
-<style>
-  body {
-    padding-top: 100px;
-  }
-</style>

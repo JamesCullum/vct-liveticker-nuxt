@@ -17,6 +17,16 @@
 
     setLocalStorage("theme", selectedTheme.value);
   }
+
+  useHead({
+    bodyAttrs: {
+      class: computed(() => {
+        if (getThemeName(selectedTheme) == "dark") return "dark";
+
+        return "";
+      }),
+    },
+  });
 </script>
 
 <template>

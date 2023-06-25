@@ -54,7 +54,10 @@ export function showNotificationHint() {
       severity: "info",
       id: "notification-hint",
       buttonLabel: "Turn On",
-      buttonAction: enableNotifications,
+      buttonAction: () => {
+        enableNotifications();
+        hideError("notification-hint");
+      },
     });
   }
 }
