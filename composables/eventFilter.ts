@@ -13,9 +13,9 @@ export type filterOpt = string | advancedFilter;
 export const filterOptions = <Array<filterOpt>>[
   { label: "Global", filter: ["Masters", "Champions"] },
   // International leagues
-  "Americas League",
-  "Pacific League",
-  "EMEA League",
+  "Americas",
+  "Pacific",
+  "EMEA",
   // Challengers
   "Brazil",
   "North America",
