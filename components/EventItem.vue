@@ -23,7 +23,7 @@
               {{ props.eventName }}
             </span>
           </h2>
-          <div class="col-lg-4 text-end d-none d-lg-block">
+          <div class="col-lg-4 text-end">
             <SubscriptionButton
               class="btn-lg"
               type="event"
@@ -50,13 +50,6 @@
               Load more
             </button>
           </div>
-        </div>
-        <div class="mt-2 d-lg-none">
-          <SubscriptionButton
-            class="btn-lg w-100"
-            type="event"
-            :label="props.eventName"
-          />
         </div>
       </div>
     </div>
