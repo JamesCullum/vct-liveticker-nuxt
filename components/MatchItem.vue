@@ -40,7 +40,7 @@
             </div>
             <div class="team-score">
               {{ "map1" in match ? match.map1 : "-" }}
-              {{ "score1" in match ? "(" + match.score1 + ")" : "" }}
+              {{ "round1" in match ? "(" + match.round1 + ")" : "" }}
             </div>
           </div>
           <div class="col-6 text-end team-side">
@@ -49,7 +49,7 @@
             </div>
             <div class="team-score">
               {{ "map2" in match ? match.map2 : "-" }}
-              {{ "score2" in match ? "(" + match.score2 + ")" : "" }}
+              {{ "round2" in match ? "(" + match.round2 + ")" : "" }}
             </div>
           </div>
         </div>
