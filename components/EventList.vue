@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { Unsubscribe } from "firebase/firestore";
+  import { type Unsubscribe } from "firebase/firestore";
 
   const eventList = useEvents();
 
@@ -40,7 +40,7 @@
     <div v-else>
       <template v-for="eventName in orderedEvents" :key="eventName">
         <EventItem
-          v-if="filters.length == 0 || filterContains(eventName, filters)"
+          v-if="filters.length == 0 || filterContains(eventName, filters) != null"
           :eventName="eventName"
         />
       </template>

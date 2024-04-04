@@ -1,4 +1,5 @@
-import { Unsubscribe, doc, onSnapshot, getDoc } from "firebase/firestore";
+import { type Unsubscribe, doc, onSnapshot, getDoc } from "firebase/firestore";
+import { findFirstFilter } from "@/composables/eventFilter";
 
 export const statusLookup = ["Upcoming", "Live", "Finished"];
 export const statusCardClassLookup = ["secondary", "danger", "success"];
@@ -96,11 +97,7 @@ export function getOrderedEventNames(
   events: EventListInterface
 ): Array<string> {
   return Object.keys(events).sort((a, b) => {
-    const aCount = Object.values(events[a]).flat(1).length;
-    const bCount = Object.values(events[b]).flat(1).length;
-    if (aCount < bCount) return 1;
-    if (aCount > bCount) return -1;
-    return 0;
+    return findFirstFilter(a, b);
   });
 }
 
@@ -110,6 +107,9 @@ export function getOrderedMatchItems(
   return Object.values(eventItem)
     .flat(1)
     .sort((a: MatchItemInterface, b: MatchItemInterface) => {
+      if(a.status == 1 && b.status != 1) return -1;
+      if(b.status == 1 && a.status != 1) return 1;
+
       const aDiff = getTimeDiffSeconds(a.date);
       const bDiff = getTimeDiffSeconds(b.date);
       if (aDiff > bDiff) return 1;

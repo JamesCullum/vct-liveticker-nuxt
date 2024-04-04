@@ -6,7 +6,7 @@
   <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
     <div class="container">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="/img/logo-white_30.png" width="30" height="30" alt="Logo" />
+        <nuxt-img src="/img/logo-white_30.png" width="30" height="30" alt="Logo" />
       </NuxtLink>
       <button
         class="navbar-toggler"

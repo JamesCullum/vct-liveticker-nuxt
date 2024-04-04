@@ -2,7 +2,8 @@ export const useFilters = () => useState("filters", () => <Array<string>>[]);
 
 const filterListLookup = new Map<string, number>();
 filterListLookup.set("Global", 0);
-filterListLookup.set("Eastern Europe", 7);
+filterListLookup.set("Eastern Europe", 8);
+filterListLookup.set("Turkey", 20);
 
 export type advancedFilter = {
   label: string;
@@ -16,6 +17,7 @@ export const filterOptions = <Array<filterOpt>>[
   "Americas",
   "Pacific",
   "EMEA",
+  "China",
   // Challengers
   "Brazil",
   "North America",
@@ -32,7 +34,7 @@ export const filterOptions = <Array<filterOpt>>[
   "France",
   "Italy",
   "Portugal",
-  "Turkey",
+  { label: "Turkey", filter: ["Turkey", "Türkiye"] },
   "Philippines",
   "Oceania",
   "MENA",
@@ -43,8 +45,8 @@ export function getFilterLabel(index: number): string {
   return typeof option == "string" ? option : option.label;
 }
 
-export function filterContains(label: string, filters: Array<string>): boolean {
-  if (!label) return false;
+export function filterContains(label: string, filters: Array<string>): number | null {
+  if (!label) return null;
 
   for (const filterVal of filters) {
     if (filterListLookup.has(filterVal)) {
@@ -52,12 +54,42 @@ export function filterContains(label: string, filters: Array<string>): boolean {
       const index = filterListLookup.get(filterVal) as number;
       for (const subFilterVal of (filterOptions[index] as advancedFilter)
         .filter) {
-        if (label.indexOf(subFilterVal) != -1) return true;
+        if (label.indexOf(subFilterVal) != -1) return index;
       }
     } else {
       // Normal filters
-      if (label.indexOf(filterVal) != -1) return true;
+      const index = label.indexOf(filterVal);
+      if(index != -1) return index;
     }
   }
-  return false;
+  return null;
+}
+
+// Given two labels, check which one is higher up the list
+// By doing it in a joined function, we don't need multiple iterations
+export function findFirstFilter(labelA: string, labelB: string): number {
+  if(!labelA && !labelB) return 0;
+  if(!labelB) return -1;
+  if(!labelA) return 1;
+
+  for (const filterVal of filterOptions) {
+    if(typeof filterVal === 'string') {
+      // Normal filters
+      const indexA = labelA.indexOf(filterVal);
+      const indexB = labelB.indexOf(filterVal);
+      if(indexA != -1 && indexB != -1) return 0;
+      if(indexA != -1 && indexB == -1) return -1;
+      if(indexB != -1 && indexA == -1) return 1;
+    } else {
+      // Advanced filter
+      for (const subFilterVal of filterVal.filter) {
+        const indexA = labelA.indexOf(subFilterVal);
+        const indexB = labelB.indexOf(subFilterVal);
+        if(indexA != -1 && indexB != -1) return 0;
+        if(indexA != -1 && indexB == -1) return -1;
+        if(indexB != -1 && indexA == -1) return 1;
+      }
+    }
+  }
+  return 0;
 }

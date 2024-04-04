@@ -42,7 +42,7 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
-  modules: [],
+  modules: ["@nuxt/image"],
   css: ["@/assets/css/bootstrap.min.css"],
   nitro: {
     preset: "cloudflare-pages",
